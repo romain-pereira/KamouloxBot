@@ -1,7 +1,7 @@
 import tweepy
 import threading
 from random import randint
-from config import configLocal as cfg
+from config import config as cfg
 
 voyelle = "a", "e", "é", "ê", "è", "i", "o", "u", "y", "h"
 
