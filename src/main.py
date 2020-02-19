@@ -1,6 +1,5 @@
 import tweepy, threading, logging
 from random import randint
-from datetime import datetime
 import config.config as cfg
 from logging.handlers import RotatingFileHandler
 
@@ -70,9 +69,8 @@ def generateWord(withAdj):
 def postTweet():
     threading.Timer(3600.0, postTweet).start()
     tweet = (generateVerb() + generateWord(randint(0, 1)) + " et "
-             + generateVerb() + generateWord(randint(0, 1)) + ".".capitalize())
+             + generateVerb() + generateWord(randint(0, 1)) + ".").capitalize()
     api.update_status(tweet)
-    logger.info("@" + user.screen_name + " Tweet :"
-          + "\"" + tweet + "\" as been posted")
+    logger.info("@" + user.screen_name + " Tweet : \"" + tweet + "\" as been posted")
 
 postTweet()
