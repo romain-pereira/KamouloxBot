@@ -103,6 +103,7 @@ soirée
 sorte
 suite
 table
+tata
 terre
 tête
 vérité

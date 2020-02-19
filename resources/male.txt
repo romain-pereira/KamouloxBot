@@ -1,4 +1,5 @@
 avis
+arabe
 bois
 bras
 choix
@@ -157,6 +158,7 @@ souvenir
 sujet
 téléphone
 tout
+tonton
 train
 travail
 trou
@@ -168,4 +170,4 @@ verre
 village
 visage
 voyage
-fils	 	Nom commun masculin pluriel
+fils

@@ -55,10 +55,10 @@ def generateWord(withAdj):
 
 
 def postTweet():
-    threading.Timer(3600.0, postTweet).start()
+    # threading.Timer(3600.0, postTweet).start()
     tweet = (generateVerb() + generateWord(randint(0, 1)) + " et "
              + generateVerb() + generateWord(randint(0, 1)) + ".".capitalize())
-    api.update_status(tweet)
+    # api.update_status(tweet)
     print("Le tweet \"" + tweet + "\" à bien été posté")
 
 
