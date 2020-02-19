@@ -1,7 +1,19 @@
-import tweepy
-import threading
+import tweepy, threading, logging
 from random import randint
-from config import config as cfg
+from datetime import datetime
+import config.config as cfg
+from logging.handlers import RotatingFileHandler
+
+logger = logging.getLogger()
+logger.setLevel(logging.DEBUG)
+formatter = logging.Formatter('%(asctime)s :: %(levelname)s :: %(message)s')
+file_handler = RotatingFileHandler('../log/kamouloxbot.log', 'a', 1000000, 1)
+file_handler.setLevel(logging.DEBUG)
+file_handler.setFormatter(formatter)
+logger.addHandler(file_handler)
+stream_handler = logging.StreamHandler()
+stream_handler.setLevel(logging.INFO)
+logger.addHandler(stream_handler)
 
 voyelle = "a", "e", "é", "ê", "è", "i", "o", "u", "y", "h"
 
@@ -21,12 +33,13 @@ auth = tweepy.OAuthHandler(cfg.apiKey, cfg.apiSecret)
 auth.set_access_token(cfg.accessToken, cfg.accessTokenSecret)
 
 api = tweepy.API(auth)
+user = api.me()
 
 try:
     api.verify_credentials()
-    print("Authentication OK")
+    logger.info("Authentication OK")
 except:
-    print("Error during authentication")
+    logger.warning("Error during authentication")
 
 
 def generateVerb():
@@ -59,7 +72,7 @@ def postTweet():
     tweet = (generateVerb() + generateWord(randint(0, 1)) + " et "
              + generateVerb() + generateWord(randint(0, 1)) + ".".capitalize())
     api.update_status(tweet)
-    print("Le tweet \"" + tweet + "\" à bien été posté")
-
+    logger.info("@" + user.screen_name + " Tweet :"
+          + "\"" + tweet + "\" as been posted")
 
 postTweet()
