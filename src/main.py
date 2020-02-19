@@ -3,7 +3,7 @@ import threading
 from random import randint
 from config import configLocal as cfg
 
-voyelle = "a", "e", "é", "ê", "è", "i", "o", "u", "y"
+voyelle = "a", "e", "é", "ê", "è", "i", "o", "u", "y", "h"
 
 verbs = open("../resources/verbs.txt", "r", encoding="utf-8")
 male = open("../resources/male.txt", "r", encoding="utf-8")
@@ -43,10 +43,10 @@ def generateWord(withAdj):
     int = randint(0, 1)
     adj = ""
 
-    if withAdj == True & int == 1:
-        adj = " " + adjMaleLines[randint(0, len(adjMaleLines))].rstrip()
-    elif withAdj == True & int == 0:
-        adj = " " + adjFemininLines[randint(0, len(adjFemininLines))].rstrip()
+    if withAdj == 1 and int == 1:
+        adj = " " + adjMaleLines[randint(0, len(adjMaleLines)) - 1].rstrip()
+    elif withAdj == 0 and int == 0:
+        adj = " " + adjFemininLines[randint(0, len(adjFemininLines)) - 1].rstrip()
 
     if int == 1:
         return " un " + maleLines[randint(0, len(maleLines)) - 1].strip() + adj
@@ -56,8 +56,8 @@ def generateWord(withAdj):
 
 def postTweet():
     threading.Timer(3600.0, postTweet).start()
-    tweet = (generateVerb() + generateWord(False) + " et "
-             + generateVerb() + generateWord(True) + ".".capitalize())
+    tweet = (generateVerb() + generateWord(randint(0, 1)) + " et "
+             + generateVerb() + generateWord(randint(0, 1)) + ".".capitalize())
     api.update_status(tweet)
     print("Le tweet \"" + tweet + "\" à bien été posté")
 
