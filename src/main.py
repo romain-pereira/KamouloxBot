@@ -34,18 +34,18 @@ nameMaleLines = nameMale.readlines()
 nameFemaleLines = nameFemale.readlines()
 nameStarLines = nameStars.readlines()
 
-# auth = tweepy.OAuthHandler(cfg.apiKey, cfg.apiSecret)
-# auth.set_access_token(cfg.accessToken, cfg.accessTokenSecret)
-#
-# api = tweepy.API(auth)
-# user = api.me()
+auth = tweepy.OAuthHandler(cfg.apiKey, cfg.apiSecret)
+auth.set_access_token(cfg.accessToken, cfg.accessTokenSecret)
 
-# try:
-#     api.verify_credentials()
-#     logger.info("Authentication OK")
-# except:
-#     logger.warning("Error during authentication")
-#
+api = tweepy.API(auth)
+user = api.me()
+
+try:
+    api.verify_credentials()
+    logger.info("Authentication OK")
+except:
+    logger.warning("Error during authentication")
+
 
 def generateVerb():
     randVerbs = randint(0, len(verbsLines) - 1)
@@ -71,6 +71,7 @@ def generateWord(withAdj):
     else:
         return " une " + feminineLines[randint(0, len(feminineLines)) - 1].strip() + adj
 
+
 def generateName():
     int = randint(0, 2)
 
@@ -81,6 +82,7 @@ def generateName():
     else:
         return " " + nameStarLines[randint(0, len(nameStarLines)) - 1].rstrip()
 
+
 def nameOrWord():
     int = randint(0, 1)
 
@@ -89,15 +91,16 @@ def nameOrWord():
     else:
         return generateName()
 
+
 def generateSentence():
     return generateVerb().capitalize() + nameOrWord() + " et " + generateVerb() + nameOrWord() + "."
 
+
 def postTweet():
-    # threading.Timer(3600.0, postTweet).start()
-    for x in range(10):
-        tweet = generateSentence()
-        print(tweet)
-    # api.update_status(tweet)
-    # logger.info("@" + user.screen_name + " Tweet : \"" + tweet + "\" as been posted")
+    threading.Timer(3600.0, postTweet).start()
+    tweet = generateSentence()
+    api.update_status(tweet)
+    logger.info("@" + user.screen_name + " Tweet : \"" + tweet + "\" as been posted")
+
 
 postTweet()
