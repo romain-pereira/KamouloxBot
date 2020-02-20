@@ -21,25 +21,31 @@ male = open("../resources/male.txt", "r", encoding="utf-8")
 feminine = open("../resources/feminine.txt", "r", encoding="utf-8")
 adjectifMale = open("../resources/adjectifMale.txt", "r", encoding="utf-8")
 adjectifFeminine = open("../resources/adjectifFeminin.txt", "r", encoding="utf-8")
+nameFemale = open("../resources/prenomFemale.txt", "r", encoding="utf-8")
+nameMale = open("../resources/prenomMale.txt", "r", encoding="utf-8")
+nameStars = open("../resources/prenomStar.txt", "r", encoding="utf-8")
 
 verbsLines = verbs.readlines()
 maleLines = male.readlines()
 feminineLines = feminine.readlines()
 adjMaleLines = adjectifMale.readlines()
 adjFemininLines = adjectifFeminine.readlines()
+nameMaleLines = nameMale.readlines()
+nameFemaleLines = nameFemale.readlines()
+nameStarLines = nameStars.readlines()
 
-auth = tweepy.OAuthHandler(cfg.apiKey, cfg.apiSecret)
-auth.set_access_token(cfg.accessToken, cfg.accessTokenSecret)
+# auth = tweepy.OAuthHandler(cfg.apiKey, cfg.apiSecret)
+# auth.set_access_token(cfg.accessToken, cfg.accessTokenSecret)
+#
+# api = tweepy.API(auth)
+# user = api.me()
 
-api = tweepy.API(auth)
-user = api.me()
-
-try:
-    api.verify_credentials()
-    logger.info("Authentication OK")
-except:
-    logger.warning("Error during authentication")
-
+# try:
+#     api.verify_credentials()
+#     logger.info("Authentication OK")
+# except:
+#     logger.warning("Error during authentication")
+#
 
 def generateVerb():
     randVerbs = randint(0, len(verbsLines) - 1)
@@ -65,12 +71,33 @@ def generateWord(withAdj):
     else:
         return " une " + feminineLines[randint(0, len(feminineLines)) - 1].strip() + adj
 
+def generateName():
+    int = randint(0, 2)
+
+    if int == 0:
+        return " " + nameMaleLines[randint(0, len(nameMaleLines)) - 1].rstrip().capitalize()
+    elif int == 1:
+        return " " + nameFemaleLines[randint(0, len(nameFemaleLines)) - 1].rstrip().capitalize()
+    else:
+        return " " + nameStarLines[randint(0, len(nameStarLines)) - 1].rstrip()
+
+def nameOrWord():
+    int = randint(0, 1)
+
+    if int == 0:
+        return generateWord(randint(0, 1))
+    else:
+        return generateName()
+
+def generateSentence():
+    return generateVerb().capitalize() + nameOrWord() + " et " + generateVerb() + nameOrWord() + "."
 
 def postTweet():
-    threading.Timer(3600.0, postTweet).start()
-    tweet = (generateVerb() + generateWord(randint(0, 1)) + " et "
-             + generateVerb() + generateWord(randint(0, 1)) + ".").capitalize()
-    api.update_status(tweet)
-    logger.info("@" + user.screen_name + " Tweet : \"" + tweet + "\" as been posted")
+    # threading.Timer(3600.0, postTweet).start()
+    for x in range(10):
+        tweet = generateSentence()
+        print(tweet)
+    # api.update_status(tweet)
+    # logger.info("@" + user.screen_name + " Tweet : \"" + tweet + "\" as been posted")
 
 postTweet()

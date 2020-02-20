@@ -209,7 +209,6 @@ rapide
 récent
 séculaire
 tardif
-tardive
 trimestriel
 vétuste
 vieux
@@ -315,3 +314,5 @@ turquoise
 vert
 violet
 qui pue
+qui fais péter
+qui sent fort
