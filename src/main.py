@@ -18,12 +18,13 @@ voyelle = "a", "e", "é", "ê", "è", "i", "o", "u", "y", "h"
 
 verbs = open("../resources/verbs.txt", "r", encoding="utf-8")
 male = open("../resources/male.txt", "r", encoding="utf-8")
-feminine = open("../resources/feminine.txt", "r", encoding="utf-8")
-adjectifMale = open("../resources/adjectifMale.txt", "r", encoding="utf-8")
-adjectifFeminine = open("../resources/adjectifFeminin.txt", "r", encoding="utf-8")
-nameFemale = open("../resources/prenomFemale.txt", "r", encoding="utf-8")
-nameMale = open("../resources/prenomMale.txt", "r", encoding="utf-8")
-nameStars = open("../resources/prenomStar.txt", "r", encoding="utf-8")
+feminine = open("../resources/female.txt", "r", encoding="utf-8")
+adjectifMale = open("../resources/adjMale.txt", "r", encoding="utf-8")
+adjectifFeminine = open("../resources/adjFemale.txt", "r", encoding="utf-8")
+nameFemale = open("../resources/nameFemale.txt", "r", encoding="utf-8")
+nameMale = open("../resources/nameMale.txt", "r", encoding="utf-8")
+nameStars = open("../resources/nameStars.txt", "r", encoding="utf-8")
+preposition = open("../resources/prepositions.txt", "r", encoding="utf-8")
 
 verbsLines = verbs.readlines()
 maleLines = male.readlines()
@@ -33,6 +34,8 @@ adjFemininLines = adjectifFeminine.readlines()
 nameMaleLines = nameMale.readlines()
 nameFemaleLines = nameFemale.readlines()
 nameStarLines = nameStars.readlines()
+prepositionLines = preposition.readlines()
+
 
 auth = tweepy.OAuthHandler(cfg.apiKey, cfg.apiSecret)
 auth.set_access_token(cfg.accessToken, cfg.accessTokenSecret)
@@ -73,23 +76,26 @@ def generateWord(withAdj):
 
 
 def generateName():
-    int = randint(0, 2)
+    i = randint(0, 2)
 
-    if int == 0:
-        return " " + nameMaleLines[randint(0, len(nameMaleLines)) - 1].rstrip().capitalize()
-    elif int == 1:
-        return " " + nameFemaleLines[randint(0, len(nameFemaleLines)) - 1].rstrip().capitalize()
+    if i == 0:
+        return prepositionLines[randint(0, len(prepositionLines)) - 1].rstrip() + \
+               " " + nameMaleLines[randint(0, len(nameMaleLines)) - 1].rstrip().capitalize()
+    elif i == 1:
+        return prepositionLines[randint(0, len(prepositionLines)) - 1].rstrip() + \
+               " " + nameFemaleLines[randint(0, len(nameFemaleLines)) - 1].rstrip().capitalize()
     else:
-        return " " + nameStarLines[randint(0, len(nameStarLines)) - 1].rstrip()
+        return prepositionLines[randint(0, len(prepositionLines)) - 1].rstrip() + \
+               " " + nameStarLines[randint(0, len(nameStarLines)) - 1].rstrip()
 
 
 def nameOrWord():
-    int = randint(0, 1)
+    int = randint(0, 2)
 
     if int == 0:
-        return generateWord(randint(0, 1))
-    else:
         return generateName()
+    else:
+        return generateWord(randint(0, 1))
 
 
 def generateSentence():
@@ -101,6 +107,5 @@ def postTweet():
     tweet = generateSentence()
     api.update_status(tweet)
     logger.info("@" + user.screen_name + " Tweet : \"" + tweet + "\" as been posted")
-
 
 postTweet()

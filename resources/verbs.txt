@@ -62,12 +62,15 @@ décide
 défeque
 défonce
 découvre
+décarcasse
+décortique
 dégage
-dégorger
+dégorge
 désengorge
 demande
 descends
 désole
+désisse
 déteste
 détruits
 deviens
@@ -106,6 +109,7 @@ file
 finis
 fous
 frappe
+fume
 gagne
 garde
 glisse
@@ -145,6 +149,7 @@ offre
 ose
 oublie
 ouvre
+palpe
 paraît
 parle
 part
@@ -155,6 +160,7 @@ perds
 péte
 permets
 pleure
+pompe
 porte
 pose
 pousse
@@ -187,7 +193,7 @@ répète
 réponds
 repose
 reprends
-ressemble
+ressemble à
 retiens
 retire
 retourne
@@ -232,3 +238,11 @@ vend
 vie
 vois
 vole
+rase
+carjack
+jute sur
+goume
+claque
+pète sur
+vomi sur
+gobe
