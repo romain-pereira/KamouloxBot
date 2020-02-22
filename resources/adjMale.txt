@@ -145,7 +145,7 @@ solitaire
 soucieux
 souffrant
 soupçonneux
-sûr de soi
+sûr de lui
 timide
 tranquille
 triste
@@ -171,9 +171,6 @@ tordu
 triangulaire
 colossal
 exigu
-fin
-gigantesque
-grand
 immense
 important
 imposant
@@ -182,7 +179,6 @@ large
 menu
 minuscule
 monumental
-petit
 spacieux
 super
 vaste
@@ -192,7 +188,6 @@ annuel
 antique
 avancé
 bref
-brève
 contemporain
 d'aujourd'hui
 hebdomadaire
@@ -232,7 +227,6 @@ innombrable
 léger
 lourd
 multiple
-nombreux
 rempli
 substantiel
 répété

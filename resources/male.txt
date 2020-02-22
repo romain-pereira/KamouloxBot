@@ -213,7 +213,6 @@ beurrier
 bibliographe
 bibliothécaire
 bijoutier
-bijoutier-boîtier
 biochimiste
 biologiste
 biscuitier

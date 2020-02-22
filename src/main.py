@@ -24,7 +24,7 @@ adjectifFeminine = open("../resources/adjFemale.txt", "r", encoding="utf-8")
 nameFemale = open("../resources/nameFemale.txt", "r", encoding="utf-8")
 nameMale = open("../resources/nameMale.txt", "r", encoding="utf-8")
 nameStars = open("../resources/nameStars.txt", "r", encoding="utf-8")
-preposition = open("../resources/prepositions.txt", "r", encoding="utf-8")
+preposition = open("../resources/verbsPreposed.txt", "r", encoding="utf-8")
 
 verbsLines = verbs.readlines()
 maleLines = male.readlines()
@@ -35,7 +35,6 @@ nameMaleLines = nameMale.readlines()
 nameFemaleLines = nameFemale.readlines()
 nameStarLines = nameStars.readlines()
 prepositionLines = preposition.readlines()
-
 
 auth = tweepy.OAuthHandler(cfg.apiKey, cfg.apiSecret)
 auth.set_access_token(cfg.accessToken, cfg.accessTokenSecret)
@@ -50,14 +49,11 @@ except:
     logger.warning("Error during authentication")
 
 
-def generateVerb():
-    randVerbs = randint(0, len(verbsLines) - 1)
-    verb = verbsLines[randVerbs]
-
+def generatePronom(verb):
     if verb.startswith(voyelle):
-        return "j\'" + verb.rstrip()
+        return "\'" + verb.rstrip()
     else:
-        return "je " + verb.rstrip()
+        return "e " + verb.rstrip()
 
 
 def generateWord(withAdj):
@@ -77,16 +73,14 @@ def generateWord(withAdj):
 
 def generateName():
     i = randint(0, 2)
+    verb = generatePronom(prepositionLines[randint(0, len(prepositionLines)) - 1].rstrip())
 
     if i == 0:
-        return prepositionLines[randint(0, len(prepositionLines)) - 1].rstrip() + \
-               " " + nameMaleLines[randint(0, len(nameMaleLines)) - 1].rstrip().capitalize()
+        return verb + " " + nameMaleLines[randint(0, len(nameMaleLines)) - 1].rstrip()
     elif i == 1:
-        return prepositionLines[randint(0, len(prepositionLines)) - 1].rstrip() + \
-               " " + nameFemaleLines[randint(0, len(nameFemaleLines)) - 1].rstrip().capitalize()
+        return verb + " " + nameFemaleLines[randint(0, len(nameFemaleLines)) - 1].rstrip()
     else:
-        return prepositionLines[randint(0, len(prepositionLines)) - 1].rstrip() + \
-               " " + nameStarLines[randint(0, len(nameStarLines)) - 1].rstrip()
+        return verb + " " + nameStarLines[randint(0, len(nameStarLines)) - 1].rstrip()
 
 
 def nameOrWord():
@@ -95,11 +89,11 @@ def nameOrWord():
     if int == 0:
         return generateName()
     else:
-        return generateWord(randint(0, 1))
+        return generatePronom(verbsLines[randint(0, len(verbsLines) - 1)]) + generateWord(randint(0, 1))
 
 
 def generateSentence():
-    return generateVerb().capitalize() + nameOrWord() + " et " + generateVerb() + nameOrWord() + "."
+    return "J" + nameOrWord() + " et j" + nameOrWord() + "."
 
 
 def postTweet():
