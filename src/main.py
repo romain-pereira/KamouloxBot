@@ -97,12 +97,9 @@ def generateSentence():
 
 
 def postTweet():
-    # threading.Timer(3600.0, postTweet).start()
-    for x in range(10):
-        tweet = generateSentence()
-        print(tweet)
-    # api.update_status(tweet)
-    # logger.info("@" + user.screen_name + " Tweet : \"" + tweet + "\" as been posted")
-
+    threading.Timer(3600.0, postTweet).start()
+    tweet = generateSentence()
+    api.update_status(tweet)
+    logger.info("@" + user.screen_name + " Tweet : \"" + tweet + "\" as been posted")
 
 postTweet()
