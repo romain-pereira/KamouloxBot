@@ -170,7 +170,6 @@ avionneur
 aviseur
 avocat
 ayant droit  ayant droit
-
 babysitter
 bachelier
 bactériologiste
@@ -191,12 +190,9 @@ baron
 barragiste
 barreur
 baryton
-
 basketteur
 basse
-
 basse-baryton
-
 bassiste
 bateleur
 batelier
