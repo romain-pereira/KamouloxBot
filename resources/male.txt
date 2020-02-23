@@ -291,8 +291,7 @@ clinicien
 calculateur
 cloueur
 calfat
-clown clown
-
+clown
 calibriste
 coach
 calligraphe
